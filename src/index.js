@@ -1,7 +1,7 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
-import axios from 'axios';
+// import axios from 'axios';
 import { fetchPhotos } from './js/fetchPhotos';
 
 const form = document.querySelector('.search-form');
@@ -18,4 +18,34 @@ form.addEventListener('submit', event => {
   if (currentquery === '') {
     return;
   }
+  getPhotos(currentquery, currentpage);
 });
+
+btn.addEventListener('click', event => {
+  getPhotos(currentquery, currentpage);
+});
+
+function getPhotos(query, page) {
+  fetchPhotos(query, page).then(json => {
+    console.log(json);
+    if (json.data.totalHits === 0) {
+      btn.classList.add('load-more');
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return;
+    }
+    const arr = json.data.hits;
+    console.log(arr);
+    renderPhotos(arr);
+    currentpage += 1;
+    if (json.data.totalHits > 40) {
+      btn.classList.remove('load-more');
+    }
+    if (json.data.totalHits / 40 <= currentpage - 1) {
+      btn.classList.add('load-more');
+    }
+  });
+}
+
+function renderPhotos(arr) {}
