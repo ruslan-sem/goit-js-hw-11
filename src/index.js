@@ -44,6 +44,9 @@ function getPhotos(query, page) {
     }
     if (json.data.totalHits / 40 <= currentpage - 1) {
       btn.classList.add('load-more');
+      Notiflix.Notify.failure(
+        "We're sorry, but you've reached the end of search results."
+      );
     }
   });
 }
