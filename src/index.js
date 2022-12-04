@@ -14,6 +14,7 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   currentpage = 1;
   gallery.innerHTML = '';
+  btn.classList.add('load-more');
   currentquery = event.currentTarget.searchQuery.value.trim();
   if (currentquery === '') {
     btn.classList.add('load-more');
