@@ -28,7 +28,7 @@ btn.addEventListener('click', event => {
 
 function getPhotos(query, page) {
   fetchPhotos(query, page).then(json => {
-    console.log(json);
+    // console.log(json);
     if (json.data.totalHits === 0) {
       btn.classList.add('load-more');
       Notiflix.Notify.failure(
@@ -37,7 +37,7 @@ function getPhotos(query, page) {
       return;
     }
     const arr = json.data.hits;
-    console.log(arr);
+    // console.log(arr);
     renderPhotos(arr);
     currentpage += 1;
     if (json.data.totalHits > 40) {
@@ -56,7 +56,7 @@ function renderPhotos(arr) {
   const cards = arr
     .map(
       el => `<div class="photo-card">
-  <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width="320"/>
+  <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width="320" height="200"/>
   <div class="info">
     <p class="info-item">
       <b>Likes</b> ${el.likes}
