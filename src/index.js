@@ -16,6 +16,7 @@ form.addEventListener('submit', event => {
   gallery.innerHTML = '';
   currentquery = event.currentTarget.searchQuery.value.trim();
   if (currentquery === '') {
+    btn.classList.add('load-more');
     return;
   }
   getPhotos(currentquery, currentpage);
@@ -51,4 +52,27 @@ function getPhotos(query, page) {
   });
 }
 
-function renderPhotos(arr) {}
+function renderPhotos(arr) {
+  const cards = arr
+    .map(
+      el => `<div class="photo-card">
+  <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width="320"/>
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b> ${el.likes}
+    </p>
+    <p class="info-item">
+      <b>Views</b> ${el.views}
+    </p>
+    <p class="info-item">
+      <b>Comments</b> ${el.comments}
+    </p>
+    <p class="info-item">
+      <b>Downloads</b> ${el.downloads}
+    </p>
+  </div>
+</div>`
+    )
+    .join('');
+  gallery.insertAdjacentHTML('beforeend', cards);
+}
